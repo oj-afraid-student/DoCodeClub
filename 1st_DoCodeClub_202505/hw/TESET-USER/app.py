@@ -9,3 +9,4 @@ def add_one():
 class AddOne:
     def add_one(self):
         return 1 + 1
+print("sunwang good")
