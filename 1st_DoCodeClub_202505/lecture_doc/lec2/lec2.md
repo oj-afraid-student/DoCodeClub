@@ -35,7 +35,7 @@ AIGC (人工智能自动生成内容，AI Generated Content)是指利用人工�
 
 ---
 
-## 二、Prompt工程基础
+## 二、Prompt工程介绍
 
 ### 2.1 Prompt是什么？
 
@@ -60,143 +60,99 @@ Prompt = 给AI一个指令/列表，使它产生预期结果
 
 ## 三、后端服务搭建基础
 
-### 3.1 Flask 简介（背景知识）
+### 3.1 后端是什么？
+
+后端（Backend）是一个软件系统中**负责处理逻辑、数据、计算与接口的部分**。我们日常使用的网页、App（如微信、B站），它们的页面和操作都依赖后端处理数据，比如：
+
+- 登录验证账号密码 ✅
+- 聊天记录的存储与调用 📬
+- 点赞、评论的记录和展示 👍
+
+后端的主要职责包括：
+
+- 接收前端发来的请求
+- 处理请求（可能涉及数据库、AI模型等）
+- 将处理结果返回给前端
+
+### 3.2 后端常见名词解释
+
+| 名词                | 解释                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| **API**             | 全称 Application Programming Interface，应用程序接口，前后端之间交流的“约定通道”。 |
+| **路由 (Route)**    | 指定某个网址（如 `/chat`）对应的后端函数，决定用户访问时触发哪个处理逻辑。 |
+| **请求 (Request)**  | 用户发给服务器的信息，如发送一段文字给AI。                   |
+| **响应 (Response)** | 服务器返回给用户的信息，如AI的回答。                         |
+| **JSON**            | 一种轻量的数据格式，常用来在前后端之间传输结构化数据。       |
+| **环境变量 (.env)** | 存储敏感信息或配置信息的文件，如 API 密钥、数据库地址等。    |
+
+### 3.3 Flask 简介
 
 [Flask 官网：https://flask.palletsprojects.com/](https://flask.palletsprojects.com/)
 
-Flask 是一个用 Python 编写的轻量级 Web 应用框架，适用于快速开发后端接口。其特点是简洁、灵活、可扩展，适合 AIGC 原型系统搭建，例如本次“笃小实AI”。
+Flask 是一个用 Python 编写的轻量级 Web 框架，常用于快速搭建后端服务。它的特点是：
 
-特点：
+- 🌱 简单上手，适合初学者和原型开发
+- ⚙️ 支持灵活扩展，可连接数据库、AI模型等
+- 🔁 提供“请求 -> 响应”的机制，便于构建聊天类服务
 
-- **轻量简单**：核心包功能精简，可按需添加插件
-- **请求处理**：支持 GET、POST 等 HTTP 方法
-- **路由系统**：URL 到函数的映射机制（如 `/chat` 处理对话）
-- **模板支持**：集成 Jinja2，可动态渲染 HTML 页面
-- **易部署**：开发阶段自带服务器，生产环境可用 Gunicorn、Docker 等部署
+在本项目中，我们使用 Flask 来作为后端框架，接收用户输入、调用 AI 模型、返回响应结果。
 
-### 3.2 组成组件
+### 3.4 项目代码结构简介
 
-以Flask为基础构建后端：
+项目结构与功能说明如下
 
-* `app.py` 主程序启动和接口路由
-* `core/llm.py`：调用DeepSeek API
-* `core/agent.py`：任务处理和对话介绍
-* `core/memory.py`：简单存储对话历史
-* `core/task_manager.py`：管理任务列表
-* `.env`：API配置
+```bash
+DoCode-AGI/
+├── app.py                        # 后端主程序，启动 Flask 服务
+├── chat_in_terminal.py           # 终端聊天脚本（用户输入 -> AI 回复）
+├── config.py                     # 读取环境变量的配置文件
+├── requirement.txt               # 依赖库列表（用于 pip install）
+├── .env                          # 环境变量文件（需手动添加，如 API 密钥）
+│
+├── core/                         # 核心模块文件夹
+│   ├── llm.py                    # LLM 接口调用（封装 DeepSeek API）
+│   ├── agent.py                  # ToyAGI 智能体：管理聊天和任务
+│   ├── memory.py                 # 对话记忆模块（存储上下文历史）
+│   └── task_manager.py           # 任务管理模块（记录状态与结果）
+│
+├── readme.md                     # 项目说明文件
+```
 
-### 3.3 基本流程
+### 3.5 后端代码执行流程
 
-* 用户输入消息
-* Flask 接受请求调用 `ToyAGI.chat()`
-* chat 通过 `llm.generate_response()` 调用 LLM
-* 返回消息、存入 memory
+以聊天为例，当你在终端输入一段文字后：
+
+```mermaid
+sequenceDiagram
+    participant 用户
+    participant 终端脚本
+    participant Flask后端(app.py)
+    participant ToyAGI(agent.py)
+    participant LLM(DeepSeek API)
+
+    用户->>终端脚本: 输入“你好”
+    终端脚本->>Flask后端: POST请求，内容为 {"message": "你好"}
+    Flask后端->>ToyAGI: 调用 chat("你好")
+    ToyAGI->>LLM: 构造上下文，调用 generate_response()
+    LLM-->>ToyAGI: 返回 AI 回复
+    ToyAGI-->>Flask后端: 返回回复内容
+    Flask后端-->>终端脚本: 返回 {"response": "你好，我是笃小实"}
+    终端脚本-->>用户: 显示“你好，我是笃小实”
+```
+
+**核心流程**：
+
+1. 接收用户输入 → Flask 路由触发
+2. 构造上下文消息 → `agent.py` 中完成
+3. 请求 LLM 获取回答 → `llm.py` 调用 API
+4. 保存对话历史 → `memory.py`
+5. 返回响应 → 发回终端或前端
 
 ---
 
-## 四、实操教程：搭建简单的第一个自己的AI
+## 四、实操教程：搭建简单的笃小实ai，并成功对话
 
-### 步骤 1：创建目录和文件
 
-```
-docode_ai/
-|-- app.py
-|-- core/
-|   |-- __init__.py
-|   |-- llm.py
-|   |-- agent.py
-|   |-- memory.py
-|   |-- task_manager.py
-|-- config.py
-|-- .env
-|-- requirements.txt
-```
-
-### 步骤 2：填写 .env 文件
-
-```env
-DEEPSEEK_API_KEY=your_api_key_here
-SECRET_KEY=any_random_string
-```
-
-### 步骤 3：编写 `llm.py`
-
-```python
-# core/llm.py
-import requests
-from config import DEEPSEEK_API_KEY
-
-class DeepSeekLLM:
-    def __init__(self):
-        self.api_url = "https://platform.deepseek.com/v1/chat/completions"
-        self.api_key = DEEPSEEK_API_KEY
-
-    def generate_response(self, messages):
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
-        }
-        payload = {
-            "model": "DeepSeek-R1-67B",
-            "messages": messages,
-            "temperature": 0.6
-        }
-        response = requests.post(self.api_url, headers=headers, json=payload)
-        return response.json()["choices"][0]["message"]["content"]
-```
-
-### 步骤 4：编写 `agent.py`
-
-```python
-# core/agent.py
-from core.llm import DeepSeekLLM
-
-class ToyAGI:
-    def __init__(self):
-        self.llm = DeepSeekLLM()
-        self.memory = []
-
-    def chat(self, user_input):
-        self.memory.append({"role": "user", "content": user_input})
-        messages = [{"role": "system", "content": "你是一个有帮助性的AI"}]
-        messages.extend(self.memory)
-        reply = self.llm.generate_response(messages)
-        self.memory.append({"role": "assistant", "content": reply})
-        return reply
-```
-
-### 步骤 5：编写 `app.py`
-
-```python
-# app.py
-from flask import Flask, request, jsonify
-from core.agent import ToyAGI
-
-app = Flask(__name__)
-toyagi = ToyAGI()
-
-@app.route("/chat", methods=["POST"])
-def chat():
-    user_message = request.json.get("message", "")
-    response = toyagi.chat(user_message)
-    return jsonify({"response": response})
-
-if __name__ == "__main__":
-    app.run(debug=True)
-```
-
-### 步骤 6：启动服务并测试
-
-```bash
-# 安装依赖
-pip install flask requests python-dotenv
-
-# 启动
-python app.py
-
-# 测试
-curl -X POST http://127.0.0.1:5000/chat -H "Content-Type: application/json" -d '{"message":"你好"}'
-```
 
 ## 五、常见问题与解决方法
 
