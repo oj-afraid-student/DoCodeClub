@@ -1,7 +1,5 @@
 # 1st Docode Club Lab2：AGI核心功能实现
 
----
-
 ## 一、AGI技术介绍
 
 ### 1.1 什么是AGI？
@@ -152,7 +150,67 @@ sequenceDiagram
 
 ## 四、实操教程：搭建简单的笃小实ai，并成功对话
 
+### step1：更新仓库
 
+将DoCodeClub仓库进行 `fork` 和 `pull` 操作
+
+### step2：copy HW2 框架
+
+找到 hw/hw2_code/ 这一文件夹，把内容复制到自己的作业文件夹下
+
+### step3：安装依赖环境
+
+执行
+
+```bash
+pip install -r requirement.txt
+```
+
+### step4 配置 API_KEY
+
+1. 项目中使用了清华 DeepSeek LLM 模型，需要API Token
+2. 在项目（你的作业文件夹）根目录下新建 `.env` 文件，内容如下：
+
+```ini
+DEEPSEEK_API_KEY=在 madmodel.cs.tsinghua.edu.cn 上申请的密钥
+SECRET_KEY=随便写（建议写自己学号）
+```
+
+### step5 阅读项目结构和程序填空实操
+
+你需要将 core\agent.py 和 core\llm.py 中标注了 `TODO` 的地方补全代码。
+
+### step6 进行测试与调试
+
+1. 运行 Flask 后端服务
+
+   ```bash
+   python app.py
+   ```
+
+   你将看到
+
+   ```bash
+   * Running on http://127.0.0.1:500
+   ```
+
+2. 打开另一个终端，运行终端对话脚本
+
+   ```bash
+   python chat_in_terminal.py
+   ```
+
+   你将看到
+
+   ```bash
+   你：
+   ```
+
+   输入对话内容即可
+
+注：关闭运行程序可以使用 `Ctrl+C`
+
+---
 
 ## 五、常见问题与解决方法
 
@@ -163,6 +221,8 @@ sequenceDiagram
    ```
 
    解决方法：将网络切换为校园网（再重启程序）
+
+---
 
 ## 六、参考资料与学习资源
 
