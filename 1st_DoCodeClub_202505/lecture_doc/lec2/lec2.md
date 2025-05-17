@@ -1,8 +1,12 @@
 # 1st Docode Club Lab2：AGI核心功能实现
 
+[toc]
+
 ## 一、AGI技术介绍
 
 ### 1.1 什么是AGI？
+
+<img src="pic/pic1.avif" style="zoom: 50%;" />
 
 AGI（Artificial General Intelligence，通用人工智能）指的是具备人类认知能力的人工智能系统，能够像人类一样灵活、泛化地完成不同领域的任务。
 
@@ -15,6 +19,8 @@ AGI 不依赖于特定任务训练，而能够：
 AGI 是当前AIGC与LLM技术发展的终极目标，也是学术界和产业界共同探索的前沿方向。
 
 ### 1.2 什么是AIGC？
+
+<img src="pic/pic2.jpg" style="zoom: 67%;" />
 
 AIGC (人工智能自动生成内容，AI Generated Content)是指利用人工智能技术生成文本、图片、音频、代码等内容。
 
@@ -34,6 +40,8 @@ AIGC (人工智能自动生成内容，AI Generated Content)是指利用人工�
 ---
 
 ## 二、Prompt工程介绍
+
+<img src="pic/pic3.avif" style="zoom: 50%;" />
 
 ### 2.1 Prompt是什么？
 
@@ -57,6 +65,8 @@ Prompt = 给AI一个指令/列表，使它产生预期结果
 ---
 
 ## 三、后端服务搭建基础
+
+<img src="https://miro.medium.com/v2/resize:fit:1500/0*RfvInMt7Z1TSCa8N" alt="img" style="zoom: 50%;" />
 
 ### 3.1 后端是什么？
 
