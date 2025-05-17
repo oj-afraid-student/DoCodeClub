@@ -2,7 +2,7 @@
 
 ---
 
-## 第1部分：AGI技术介绍
+## 一、AGI技术介绍
 
 ### 1.1 什么是AGI？
 
@@ -35,7 +35,7 @@ AIGC (人工智能自动生成内容，AI Generated Content)是指利用人工�
 
 ---
 
-## 第2部分：Prompt工程基础
+## 二、Prompt工程基础
 
 ### 2.1 Prompt是什么？
 
@@ -58,7 +58,7 @@ Prompt = 给AI一个指令/列表，使它产生预期结果
 
 ---
 
-## 第3部分：后端服务搭建基础
+## 三、后端服务搭建基础
 
 ### 3.1 Flask 简介（背景知识）
 
@@ -94,7 +94,7 @@ Flask 是一个用 Python 编写的轻量级 Web 应用框架，适用于快速�
 
 ---
 
-## 第4部分：实操教程：搭建简单的第一个自己的AI
+## 四、实操教程：搭建简单的第一个自己的AI
 
 ### 步骤 1：创建目录和文件
 
@@ -198,7 +198,17 @@ python app.py
 curl -X POST http://127.0.0.1:5000/chat -H "Content-Type: application/json" -d '{"message":"你好"}'
 ```
 
-## 第五部分：参考资料与学习资源
+## 五、常见问题与解决方法
+
+1. 与笃小实对话中出现
+
+   ```
+   Sorry, I encountered an error: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))
+   ```
+
+   解决方法：将网络切换为校园网（再重启程序）
+
+## 六、参考资料与学习资源
 
 1. **Git 学习资源**：
    - [Git 官方文档](https://git-scm.com/doc)
