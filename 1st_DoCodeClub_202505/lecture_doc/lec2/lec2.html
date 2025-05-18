@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .slide {
+            width: 90vw;
+            height: 90vh;
+            margin: 5vh auto;
+            display: none;
+            padding: 40px 60px;
+            box-sizing: border-box;
+            background: white;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow-y: auto;
+        }
+        .active {
+            display: block;
+        }
+        .slide-content {
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        h1 {
+            color: #003366;
+            font-size: 2.8em;
+            margin: 40px 0;
+            text-align: center;
+        }
+        h2 {
+            color: #005599;
+            font-size: 2.2em;
+            margin: 30px 0;
+            text-align: center;
+        }
+        h3 {
+            color: #0077cc;
+            font-size: 1.8em;
+            margin: 25px 0;
+        }
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .image-container img {
+            max-width: 70%;
+            max-height: 60vh;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .nav-button {
+            padding: 12px 25px;
+            background: #003366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #004488;
+            transform: translateY(-2px);
+        }
+        .content {
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: #444;
+        }
+        .code {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 1.1em;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1em;
+            color: #666;
+        }
+        .highlight {
+            color: #003366;
+            font-weight: bold;
+        }
+        .two-column {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .column {
+            flex: 1;
+        }
+        .step-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #003366;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 标题页 -->
+<div class="slide active" id="slide1">
+    <div class="slide-content">
+        <h1>1st Docode Club Lab2</h1>
+        <h2>AGI核心功能实现</h2>
+        <div class="content" style="text-align: center; margin-top: 50px;">
+            <p class="highlight">培训内容概览</p>
+            <ul style="list-style: none; padding: 0;">
+                <li>AGI技术介绍</li>
+                <li>Prompt工程介绍</li>
+                <li>后端服务搭建基础</li>
+                <li>实操教程</li>
+                <li>常见问题与解决方法</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">1 / 20</div>
+</div>
+
+<!-- AGI概念 -->
+<div class="slide" id="slide2">
+    <div class="slide-content">
+        <h2>什么是AGI？</h2>
+        <div class="image-container">
+            <img src="pic/pic1.avif" alt="AGI概念图">
+        </div>
+        <div class="content">
+            <p>AGI（Artificial General Intelligence）是具备人类认知能力的人工智能系统</p>
+            <ul>
+                <li>理解并生成多模态信息</li>
+                <li>学习新技能、解决新问题</li>
+                <li>拥有持续性记忆与规划能力</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">2 / 20</div>
+</div>
+
+<!-- AIGC介绍 -->
+<div class="slide" id="slide3">
+    <div class="slide-content">
+        <h2>什么是AIGC？</h2>
+        <div class="image-container">
+            <img src="pic/pic2.jpg" alt="AIGC示意图">
+        </div>
+        <div class="content">
+            <p class="highlight">AI Generated Content：人工智能自动生成内容</p>
+            <div class="two-column">
+                <div class="column">
+                    <p>主要应用：</p>
+                    <ul>
+                        <li>文字创作</li>
+                        <li>图像生成</li>
+                        <li>代码生成</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <p>代表产品：</p>
+                    <ul>
+                        <li>ChatGPT</li>
+                        <li>Stable Diffusion</li>
+                        <li>GitHub Copilot</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">3 / 20</div>
+</div>
+
+<!-- LLM介绍 -->
+<div class="slide" id="slide4">
+    <div class="slide-content">
+        <h2>什么是LLM？</h2>
+        <div class="content">
+            <p class="highlight">Large Language Model：大型语言模型</p>
+            <div class="two-column">
+                <div class="column">
+                    <p>技术特点：</p>
+                    <ul>
+                        <li>大规模预训练</li>
+                        <li>自然语言理解</li>
+                        <li>内容生成能力</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <p>主流模型：</p>
+                    <ul>
+                        <li>OpenAI GPT-4</li>
+                        <li>DeepSeek</li>
+                        <li>Claude</li>
+                        <li>LLaMA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">4 / 20</div>
+</div>
+
+<!-- Prompt工程介绍 -->
+<div class="slide" id="slide5">
+    <div class="slide-content">
+        <h2>Prompt工程介绍</h2>
+        <div class="image-container">
+            <img src="pic/pic3.avif" alt="Prompt工程图">
+        </div>
+        <div class="content">
+            <p class="highlight">Prompt = 给AI一个指令/列表，使它产生预期结果</p>
+        </div>
+    </div>
+    <div class="slide-number">5 / 20</div>
+</div>
+
+<!-- Prompt写作格式 -->
+<div class="slide" id="slide6">
+    <div class="slide-content">
+        <h2>Prompt写作格式</h2>
+        <div class="content">
+            <div class="step-box">
+                <p>1. 身份设定</p>
+                <p class="code">"你是一个专业统计分析师"</p>
+            </div>
+            <div class="step-box">
+                <p>2. 对话规则设定</p>
+                <p class="code">用"system"或"user"设定对话规则</p>
+            </div>
+            <div class="step-box">
+                <p>3. 结果格式指定</p>
+                <p class="code">"以markdown格式输出"
+"必须使用python代码块"</p>
+            </div>
+            <div class="step-box">
+                <p>4. 示例提供</p>
+                <p class="code">提供既有的input-output对</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">6 / 20</div>
+</div>
+
+<!-- Prompt工程经典模式 -->
+<div class="slide" id="slide7">
+    <div class="slide-content">
+        <h2>Prompt工程经典模式</h2>
+        <div class="content">
+            <div class="two-column">
+                <div class="column">
+                    <div class="step-box">
+                        <p>Zero-shot</p>
+                        <p>直接提问</p>
+                    </div>
+                    <div class="step-box">
+                        <p>One-shot</p>
+                        <p>给一个示例</p>
+                    </div>
+                    <div class="step-box">
+                        <p>Few-shot</p>
+                        <p>给出3~5个示例</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="step-box">
+                        <p>Chain-of-thought</p>
+                        <p>强调分步理解和解题</p>
+                    </div>
+                    <div class="step-box">
+                        <p>ReAct</p>
+                        <p>给出"思考+操作"链</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">7 / 20</div>
+</div>
+
+<!-- 后端服务介绍 -->
+<div class="slide" id="slide8">
+    <div class="slide-content">
+        <h2>后端服务搭建基础</h2>
+        <div class="image-container">
+            <img src="https://miro.medium.com/v2/resize:fit:1500/0*RfvInMt7Z1TSCa8N" alt="后端架构图">
+        </div>
+        <div class="content">
+            <p class="highlight">后端（Backend）是软件系统中负责处理逻辑、数据、计算与接口的部分</p>
+        </div>
+    </div>
+    <div class="slide-number">8 / 20</div>
+</div>
+
+<!-- 后端职责 -->
+<div class="slide" id="slide9">
+    <div class="slide-content">
+        <h2>后端的主要职责</h2>
+        <div class="content">
+            <div class="two-column">
+                <div class="column">
+                    <div class="step-box">
+                        <p>1. 接收请求</p>
+                        <p>处理前端发来的各类请求</p>
+                    </div>
+                    <div class="step-box">
+                        <p>2. 数据处理</p>
+                        <p>涉及数据库、AI模型等操作</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="step-box">
+                        <p>3. 业务逻辑</p>
+                        <p>实现核心功能和算法</p>
+                    </div>
+                    <div class="step-box">
+                        <p>4. 返回结果</p>
+                        <p>将处理结果返回给前端</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">9 / 20</div>
+</div>
+
+<!-- 后端常见名词 -->
+<div class="slide" id="slide10">
+    <div class="slide-content">
+        <h2>后端常见名词解释</h2>
+        <div class="content">
+            <table>
+                <tr>
+                    <th>名词</th>
+                    <th>解释</th>
+                </tr>
+                <tr>
+                    <td>API</td>
+                    <td>应用程序接口，前后端交流的"约定通道"</td>
+                </tr>
+                <tr>
+                    <td>路由 (Route)</td>
+                    <td>指定网址对应的后端处理函数</td>
+                </tr>
+                <tr>
+                    <td>请求 (Request)</td>
+                    <td>用户发给服务器的信息</td>
+                </tr>
+                <tr>
+                    <td>响应 (Response)</td>
+                    <td>服务器返回给用户的信息</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="slide-number">10 / 20</div>
+</div>
+
+
+<!-- Flask介绍 -->
+<div class="slide" id="slide11">
+    <div class="slide-content">
+        <h2>Flask简介</h2>
+        <div class="content">
+            <p class="highlight">Flask是一个用Python编写的轻量级Web框架</p>
+            <div class="two-column">
+                <div class="column">
+                    <div class="step-box">
+                        <p>? 简单上手</p>
+                        <p>适合初学者和原型开发</p>
+                    </div>
+                    <div class="step-box">
+                        <p>?? 灵活扩展</p>
+                        <p>可连接数据库、AI模型等</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="step-box">
+                        <p>? 请求响应机制</p>
+                        <p>便于构建聊天类服务</p>
+                    </div>
+                    <div class="step-box">
+                        <p>? 丰富生态</p>
+                        <p>大量可用的扩展包</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">11 / 20</div>
+</div>
+
+<!-- 项目结构 -->
+<div class="slide" id="slide12">
+    <div class="slide-content">
+        <h2>项目代码结构</h2>
+        <div class="content">
+            <div class="code">DoCode-AGI/
+├── app.py                    # 后端主程序
+├── chat_in_terminal.py       # 终端聊天脚本
+├── config.py                # 配置文件
+├── requirement.txt          # 依赖库列表
+├── .env                    # 环境变量文件
+│
+├── core/                   # 核心模块
+│   ├── llm.py             # LLM接口调用
+│   ├── agent.py           # ToyAGI智能体
+│   ├── memory.py          # 对话记忆模块
+│   └── task_manager.py    # 任务管理模块</div>
+        </div>
+    </div>
+    <div class="slide-number">12 / 20</div>
+</div>
+
+<!-- 执行流程 -->
+<div class="slide" id="slide13">
+    <div class="slide-content">
+        <h2>后端代码执行流程</h2>
+        <div class="content">
+            <div class="step-box">
+                <p>1. 接收用户输入</p>
+                <p>Flask路由触发</p>
+            </div>
+            <div class="step-box">
+                <p>2. 构造上下文消息</p>
+                <p>agent.py中完成</p>
+            </div>
+            <div class="step-box">
+                <p>3. 请求LLM获取回答</p>
+                <p>llm.py调用API</p>
+            </div>
+            <div class="step-box">
+                <p>4. 保存对话历史</p>
+                <p>memory.py处理</p>
+            </div>
+            <div class="step-box">
+                <p>5. 返回响应</p>
+                <p>发回终端或前端</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">13 / 20</div>
+</div>
+
+<!-- 实操教程第一部分 -->
+<div class="slide" id="slide14">
+    <div class="slide-content">
+        <h2>实操教程（上）</h2>
+        <div class="content">
+            <div class="step-box">
+                <p>Step 1: 更新仓库</p>
+                <p>将DoCodeClub仓库进行fork和pull操作</p>
+            </div>
+            <div class="step-box">
+                <p>Step 2: 复制框架</p>
+                <p>将hw/hw2_code/内容复制到作业文件夹</p>
+            </div>
+            <div class="step-box">
+                <p>Step 3: 安装依赖</p>
+                <p class="code">pip install -r requirement.txt</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">14 / 20</div>
+</div>
+
+<!-- 实操教程第二部分 -->
+<div class="slide" id="slide15">
+    <div class="slide-content">
+        <h2>实操教程（下）</h2>
+        <div class="content">
+            <div class="step-box">
+                <p>Step 4: 配置API_KEY</p>
+                <p class="code">DEEPSEEK_API_KEY=your_api_key
+SECRET_KEY=your_secret_key</p>
+            </div>
+            <div class="step-box">
+                <p>Step 5: 补全代码</p>
+                <p>完成core\agent.py和core\llm.py中的TODO部分</p>
+            </div>
+            <div class="step-box">
+                <p>Step 6: 测试运行</p>
+                <p class="code">python app.py
+python chat_in_terminal.py</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">15 / 20</div>
+</div>
+
+<!-- 运行效果 -->
+<div class="slide" id="slide16">
+    <div class="slide-content">
+        <h2>运行效果展示</h2>
+        <div class="content">
+            <div class="step-box">
+                <p>后端服务启动：</p>
+                <p class="code">* Running on http://127.0.0.1:5000</p>
+            </div>
+            <div class="step-box">
+                <p>终端对话界面：</p>
+                <p class="code">你：_</p>
+            </div>
+            <div class="step-box">
+                <p>注意事项：</p>
+                <ul>
+                    <li>使用Ctrl+C关闭程序</li>
+                    <li>确保两个终端都在运行</li>
+                    <li>检查网络连接状态</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">16 / 20</div>
+</div>
+
+<!-- 常见问题 -->
+<div class="slide" id="slide17">
+    <div class="slide-content">
+        <h2>常见问题与解决方法</h2>
+        <div class="content">
+            <div class="step-box">
+                <p>问题：连接中断</p>
+                <p class="code">Connection aborted.</p>
+                <p>解决：切换到校园网并重启程序</p>
+            </div>
+            <div class="step-box">
+                <p>其他可能的问题：</p>
+                <ul>
+                    <li>API密钥配置错误</li>
+                    <li>依赖库版本不匹配</li>
+                    <li>Python版本不兼容</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">17 / 20</div>
+</div>
+
+<!-- 学习资源上 -->
+<div class="slide" id="slide18">
+    <div class="slide-content">
+        <h2>参考资料与学习资源（上）</h2>
+        <div class="content">
+            <div class="two-column">
+                <div class="column">
+                    <div class="step-box">
+                        <p>Git学习：</p>
+                        <ul>
+                            <li>Git官方文档</li>
+                            <li>GitHub使用指南</li>
+                            <li>Git简明指南</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="step-box">
+                        <p>Python学习：</p>
+                        <ul>
+                            <li>Python官方文档</li>
+                            <li>廖雪峰Python教程</li>
+                            <li>Python编程：从入门到实践</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">18 / 20</div>
+</div>
+
+<!-- 学习资源下 -->
+<div class="slide" id="slide19">
+    <div class="slide-content">
+        <h2>参考资料与学习资源（下）</h2>
+        <div class="content">
+            <div class="two-column">
+                <div class="column">
+                    <div class="step-box">
+                        <p>数据科学工具：</p>
+                        <ul>
+                            <li>NumPy文档</li>
+                            <li>Pandas文档</li>
+                            <li>Matplotlib文档</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="step-box">
+                        <p>在线学习平台：</p>
+                        <ul>
+                            <li>LeetCode - 算法练习</li>
+                            <li>Coursera - 综合课程</li>
+                            <li>DataCamp - 数据科学</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">19 / 20</div>
+</div>
+
+<!-- 结束页 -->
+<div class="slide" id="slide20">
+    <div class="slide-content">
+        <h1>祝各位在 DoCode 营中学习愉快</h1>
+        <h2>掌握实用技能！</h2>
+    </div>
+    <div class="slide-number">20 / 20</div>
+</div>
+
+<div class="navigation">
+    <button class="nav-button" onclick="previousSlide()">上一页</button>
+    <button class="nav-button" onclick="nextSlide()">下一页</button>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = document.querySelectorAll('.slide').length;
+
+    function showSlide(n) {
+        // 隐藏当前幻灯片
+        document.querySelector('.slide.active').classList.remove('active');
+        
+        // 显示新幻灯片
+        document.getElementById('slide' + n).classList.add('active');
+        
+        // 滚动到顶部
+        document.getElementById('slide' + n).scrollTop = 0;
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    }
+
+    function previousSlide() {
+        if (currentSlide > 1) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    }
+
+    // 键盘控制
+    document.addEventListener('keydown', (e) => {
+        switch(e.key) {
+            case 'ArrowRight':
+            case 'PageDown':
+            case ' ':
+                nextSlide();
+                break;
+            case 'ArrowLeft':
+            case 'PageUp':
+                previousSlide();
+                break;
+        }
+    });
+
+    // 触摸控制
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50; // 最小滑动距离
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+            if (swipeDistance > 0) {
+                previousSlide(); // 向右滑动，上一页
+            } else {
+                nextSlide(); // 向左滑动，下一页
+            }
+        }
+    }
+
+    // 自动调整高度
+    function adjustHeight() {
+        const slides = document.querySelectorAll('.slide');
+        const windowHeight = window.innerHeight;
+        slides.forEach(slide => {
+            slide.style.height = `${windowHeight * 0.9}px`;
+        });
+    }
+
+    // 页面加载和调整大小时重新计算高度
+    window.addEventListener('load', adjustHeight);
+    window.addEventListener('resize', adjustHeight);
+</script>
+
+</body>
+</html>
